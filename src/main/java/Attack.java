@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public abstract class Attack {
 
     private Integer strength;
@@ -43,8 +45,14 @@ public abstract class Attack {
         }
     }
 
-    public Integer calculateDamage() {
-        return null;
+    public Integer calculateDamage(boolean isFar) {
+        Random rdm = new Random();
+        int high = isFar ? (this.strength / 2) + this.distance + this.accuracy : (this.strength) + (this.distance / 2) + this.accuracy;
+        //get random power
+        int damage = (rdm.nextInt(10 - 1) + 1) * high;
+
+        // returning that value
+        return damage;
     }
 
     public enum Weapon {
