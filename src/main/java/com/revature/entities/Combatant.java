@@ -1,3 +1,5 @@
+package com.revature.entities;
+
 public class Combatant extends Attack implements Heal {
 
     private int health;
@@ -7,13 +9,13 @@ public class Combatant extends Attack implements Heal {
 
     public Combatant(String name, boolean isVillain) {
         this.name = name;
-        this.health = 0;
+        this.health = 100;
         this.isVillain = isVillain;
     }
 
     public Combatant(String name) {
         this.name = name;
-        this.health = 0;
+        this.health = 100;
         this.isVillain = false;
     }
 

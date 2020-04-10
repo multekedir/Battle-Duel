@@ -1,4 +1,9 @@
+package com.revature.app;
+
+
 import java.util.Scanner;
+
+import com.revature.entities.Combatant;
 
 public class BattleDuel {
     public Scanner scan;
@@ -6,6 +11,7 @@ public class BattleDuel {
 
     public static void main(String[] args) {
         BattleDuel m = new BattleDuel();
+        m.start();
 
     }
 
@@ -17,7 +23,9 @@ public class BattleDuel {
         System.out.println("Enter Hero name");
         String choice = scan.nextLine();
         hero = new Combatant(choice);
-        System.out.println(hero);
+        hero.pickWeapon("Winchester");
+        System.out.println(hero.getWeapon());
+        System.out.println(hero.calculateDamage(true));
 
 //        while (userIsPlaying) {
 //            //userIsPlaying = gameLoop();

@@ -1,3 +1,7 @@
+package com.revature.entities;
+
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 public abstract class Attack {
@@ -6,8 +10,9 @@ public abstract class Attack {
     private Integer accuracy;
     private Integer distance;
 
-    public void pickWeapon(Weapon weapon) {
-        switch (weapon) {
+    public void pickWeapon(String weapon) {
+        Weapon w = Weapon.valueOf(weapon);
+        switch (w) {
             case Revolver:
                 System.out.println("Ability for quick draw during dull. Best for close range fight");
                 this.strength = 5;
@@ -36,6 +41,11 @@ public abstract class Attack {
 
     }
 
+    public List<Weapon> getWeapon() {
+        List<Weapon> weapons = Arrays.asList(Weapon.values());
+        return weapons;
+    }
+
     public void attack(Combatant obj, int damage) {
         if (obj.getHealth() - damage <= 0) {
             obj.setHealth(0);
@@ -55,8 +65,8 @@ public abstract class Attack {
         return damage;
     }
 
-    public enum Weapon {
-        Revolver, Winchester, Whitworth,
+    enum Weapon {
+        Revolver, Winchester, Whitworth
     }
 
     public void makesoud(String sound) {
