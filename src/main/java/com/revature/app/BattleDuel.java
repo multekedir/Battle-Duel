@@ -3,7 +3,9 @@ package com.revature.app;
 
 import java.util.Scanner;
 
+import com.revature.controller.Controller;
 import com.revature.entities.Combatant;
+import com.revature.entities.rooms.Room;
 
 public class BattleDuel {
     public Scanner scan;
@@ -16,16 +18,22 @@ public class BattleDuel {
     }
 
     public void start() {
-        scan = new Scanner(System.in);
-        System.out.println("Welcome to Battle Duel!");
+        Controller controller = new Controller();
+        String[] roomList = {"Stable", "Store", "Road", "null", "Entrance"};
+        System.out.println(roomList.length);
+        Room current = controller.creatRoom(roomList);
 
-        boolean userIsPlaying = true;
-        System.out.println("Enter Hero name");
-        String choice = scan.nextLine();
-        hero = new Combatant(choice);
-        hero.pickWeapon("Winchester");
-        System.out.println(hero.getWeapon());
-        System.out.println(hero.calculateDamage(true));
+        System.out.println(current.getDescription());
+//        scan = new Scanner(System.in);
+//        System.out.println("Welcome to Battle Duel!");
+//
+//        boolean userIsPlaying = true;
+//        System.out.println("Enter Hero name");
+//        String choice = scan.nextLine();
+//        hero = new Combatant(choice);
+//        hero.pickWeapon("Winchester");
+//        System.out.println(hero.getWeapon());
+//        System.out.println(hero.calculateDamage(true));
 
 //        while (userIsPlaying) {
 //            //userIsPlaying = gameLoop();
