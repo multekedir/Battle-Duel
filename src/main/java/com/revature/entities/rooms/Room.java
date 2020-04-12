@@ -1,22 +1,21 @@
 package com.revature.entities.rooms;
 
 
-import com.revature.entities.Attack;
-
-import java.util.Arrays;
-import java.util.List;
+import com.revature.entities.Combatant;
 
 /**
  * The type Room.
  */
 public class Room {
 
+    private Combatant enemy;
 
+    private String name;
     private Room southRoom;
     private Room northRoom;
     private Room eastRoom;
     private Room westRoom;
-    private String name;
+
 
     /**
      * Instantiates a new Room.
@@ -55,7 +54,7 @@ public class Room {
         String out = "You are at " + this.getName() + " to your north is " + this.getNorthRoom() +
                 " to your south is " + this.getSouthRoom() + " to your west is " + this.getWestRoom() +
                 " to your east is " + this.getEastRoom();
-
+        System.out.println(out);
         return out;
     }
 
@@ -98,6 +97,20 @@ public class Room {
     public void setWestRoom(Room westRoom) {
         this.westRoom = westRoom;
     }
+
+    public boolean addEnemy(Combatant enemy) {
+        this.enemy = enemy;
+        return this.enemy == null;
+    }
+
+    public Combatant getEnemy() {
+        return this.enemy;
+    }
+
+    public boolean hasEnemy() {
+        return enemy == null;
+    }
+
 
     @Override
     public String toString() {

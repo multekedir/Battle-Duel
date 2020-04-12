@@ -2,31 +2,61 @@ package com.revature.controller;
 
 import com.revature.entities.rooms.Room;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Controller {
+    Room current = null;
+    Room previous = null;
+    List<Room> rooms = new ArrayList<Room>();
 
-    public Room creatRoom(String[] names) {
+    Room newRoom;
+
+    public boolean creatRoom(String[] names) {
         if (names.length == 5) {
-            return new Room(names[0], names[1], names[2], names[3], names[4]);
+            newRoom = new Room(names[0], names[1], names[2], names[3], names[4]);
+            if (current == null) current = newRoom;
+            current.getDescription();
+            rooms.add(newRoom);
         } else {
-            return null;
+            return false;
         }
-//        return true;
+        return true;
     }
 
-    public Room goNorth(Room current) {
-        return current.getNorthRoom();
+    public void goNorth() {
+        System.out.println("Going North");
+        this.previous = this.current;
+        this.current = current != null ? current.getNorthRoom() : current;
+        current.getDescription();
     }
 
-    public Room goSouth(Room current) {
-        return current.getSouthRoom();
+    public void goSouth() {
+        System.out.println("Going South");
+        this.previous = this.current;
+        this.current = current != null ? this.current.getSouthRoom() : current;
+        current.getDescription();
     }
 
-    public Room goEast(Room current) {
-        return current.getEastRoom();
+    public void goEast() {
+        System.out.println("Going East");
+        this.previous = this.current;
+        this.current = current != null ? this.current.getEastRoom() : current;
+        current.getDescription();
     }
 
-    public Room goWest(Room current) {
-        return current.getWestRoom();
+    public void goWest() {
+        System.out.println("Going West");
+        this.previous = this.current;
+        this.current = current != null ? this.current.getWestRoom() : current;
+        current.getDescription();
     }
+
+    public void goBack() {
+        System.out.println("Going back");
+        this.current = this.previous;
+        this.current.getDescription();
+    }
+
 
 }

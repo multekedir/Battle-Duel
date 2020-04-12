@@ -1,11 +1,10 @@
 package com.revature.app;
 
 
-import java.util.Scanner;
-
 import com.revature.controller.Controller;
 import com.revature.entities.Combatant;
-import com.revature.entities.rooms.Room;
+
+import java.util.Scanner;
 
 public class BattleDuel {
     public Scanner scan;
@@ -20,9 +19,11 @@ public class BattleDuel {
     public void start() {
         Controller controller = new Controller();
         String[] roomList = {"Stable", "Store", "Road", "null", "Entrance"};
-        Room current = controller.creatRoom(roomList);
+        controller.creatRoom(roomList);
+        controller.goEast();
+        controller.goBack();
 
-        System.out.println(current.getDescription());
+
 //        scan = new Scanner(System.in);
 //        System.out.println("Welcome to Battle Duel!");
 //

@@ -25,6 +25,7 @@ public class Node {
         this.north = north;
         this.south = south;
         this.name = name;
+        System.out.println("Creating room" + name);
     }
 
     /**
