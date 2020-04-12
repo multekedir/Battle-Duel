@@ -41,6 +41,14 @@ public class Node {
         this.name = null;
     }
 
+    public Node(String west, String east, String north, String south, String name) {
+
+        this.name = name;
+        this.east = new Node(east);
+        this.north = new Node(north);
+        this.south = new Node(south);
+        this.west = new Node(west);
+    }
 
     /**
      * Gets west node.
@@ -130,5 +138,10 @@ public class Node {
      */
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

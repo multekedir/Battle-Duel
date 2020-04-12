@@ -14,19 +14,19 @@ public class Controller {
     }
 
     public Room goNorth(Room current) {
-        return (Room) current.getNorth();
+        return current.getNorthRoom();
     }
 
     public Room goSouth(Room current) {
-        return (Room) current.getSouth();
+        return current.getSouthRoom();
     }
 
     public Room goEast(Room current) {
-        return (Room) current.getEast();
+        return current.getEastRoom();
     }
 
     public Room goWest(Room current) {
-        return (Room) current.getWest();
+        return current.getWestRoom();
     }
 
 }

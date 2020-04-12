@@ -20,7 +20,6 @@ public class BattleDuel {
     public void start() {
         Controller controller = new Controller();
         String[] roomList = {"Stable", "Store", "Road", "null", "Entrance"};
-        System.out.println(roomList.length);
         Room current = controller.creatRoom(roomList);
 
         System.out.println(current.getDescription());
@@ -43,7 +42,7 @@ public class BattleDuel {
 //
 //        // you ALWAYS want to make sure that you close your resources
         // in this case, the Scanner is the resource that needs closed
-        scan.close();
+//        scan.close();
 
 
     }
