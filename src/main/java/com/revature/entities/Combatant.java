@@ -11,12 +11,14 @@ public class Combatant extends Attack implements Heal {
         this.name = name;
         this.health = 100;
         this.isVillain = isVillain;
+        this.isDead = false;
     }
 
     public Combatant(String name) {
         this.name = name;
         this.health = 100;
         this.isVillain = false;
+        this.isDead = false;
     }
 
     public int getHealth() {
@@ -44,6 +46,8 @@ public class Combatant extends Attack implements Heal {
         return "Combatant{" +
                 "health=" + health +
                 ", name='" + name + '\'' +
+                ", isDead=" + isDead +
+                ", isVillain=" + isVillain +
                 '}';
     }
 

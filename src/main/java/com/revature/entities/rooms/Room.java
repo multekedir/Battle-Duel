@@ -3,10 +3,31 @@ package com.revature.entities.rooms;
 
 import com.revature.entities.Combatant;
 
+import java.util.*;
+
 /**
  * The type Room.
  */
 public class Room {
+
+    /**
+     * Gets description.
+     *
+     * @return the description
+     */
+    public String getDescription() {
+        System.out.println("You are at the " + this.getName());
+        Set<Directions> keys = this.getAllSidesMap().keySet();
+        for (Directions k : keys) {
+            System.out.println("In the " + k + " -> " + this.getAllSidesMap().get(k));
+
+        }
+//        String out = "You are at the " + this.getName() + " to your north is " + this.getNorthRoom() +
+//                " to your south is " + this.getSouthRoom() + " to your west is " + this.getWestRoom() +
+//                " to your east is " + this.getEastRoom();
+//        System.out.println(out);
+        return "out";
+    }
 
     private Combatant enemy;
 
@@ -44,18 +65,13 @@ public class Room {
         this.southRoom = null;
     }
 
-
-    /**
-     * Gets description.
-     *
-     * @return the description
-     */
-    public String getDescription() {
-        String out = "You are at " + this.getName() + " to your north is " + this.getNorthRoom() +
-                " to your south is " + this.getSouthRoom() + " to your west is " + this.getWestRoom() +
-                " to your east is " + this.getEastRoom();
-        System.out.println(out);
-        return out;
+    public Map<Directions, Room> getAllSidesMap() {
+        Map<Directions, Room> hm = new HashMap<Directions, Room>();
+        if (this.westRoom != null) hm.put(Directions.WEST, this.westRoom);
+        if (this.eastRoom != null) hm.put(Directions.EAST, this.eastRoom);
+        if (this.southRoom != null) hm.put(Directions.SOUTH, this.southRoom);
+        if (this.northRoom != null) hm.put(Directions.NORTH, this.northRoom);
+        return hm;
     }
 
     public String getName() {
@@ -98,6 +114,19 @@ public class Room {
         this.westRoom = westRoom;
     }
 
+    public List<Room> getAllSides() {
+        List<Room> rooms = new ArrayList<Room>();
+        if (this.westRoom != null) rooms.add(this.westRoom);
+        if (this.eastRoom != null) rooms.add(this.eastRoom);
+        if (this.southRoom != null) rooms.add(this.southRoom);
+        if (this.northRoom != null) rooms.add(this.northRoom);
+        return rooms;
+    }
+
+    public boolean hasEnemy() {
+        return enemy != null;
+    }
+
     public boolean addEnemy(Combatant enemy) {
         this.enemy = enemy;
         return this.enemy == null;
@@ -107,8 +136,11 @@ public class Room {
         return this.enemy;
     }
 
-    public boolean hasEnemy() {
-        return enemy == null;
+    public enum Directions {
+        EAST,
+        WEST,
+        NORTH,
+        SOUTH
     }
 
 
@@ -116,6 +148,7 @@ public class Room {
     public String toString() {
         return name;
     }
+
 
 
 }

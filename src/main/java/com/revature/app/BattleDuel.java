@@ -1,6 +1,7 @@
 package com.revature.app;
 
 
+import com.revature.controller.Commands;
 import com.revature.controller.Controller;
 import com.revature.entities.Combatant;
 
@@ -19,9 +20,10 @@ public class BattleDuel {
     public void start() {
         Controller controller = new Controller();
         String[] roomList = {"Stable", "Store", "Road", "null", "Entrance"};
-        controller.creatRoom(roomList);
-        controller.goEast();
-        controller.goBack();
+        controller.setup("Multezem");
+        Commands.go();
+
+//        controller.creatRoom()
 
 
 //        scan = new Scanner(System.in);
