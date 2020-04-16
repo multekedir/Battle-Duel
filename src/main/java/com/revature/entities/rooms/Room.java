@@ -149,7 +149,21 @@ public class Room {
         return name;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Room)) return false;
+        Room room = (Room) o;
+        return name.equals(room.name) &&
+                southRoom.equals(room.southRoom) &&
+                northRoom.equals(room.northRoom) &&
+                eastRoom.equals(room.eastRoom) &&
+                westRoom.equals(room.westRoom);
+    }
 
-
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, southRoom, northRoom, eastRoom, westRoom);
+    }
 }
 

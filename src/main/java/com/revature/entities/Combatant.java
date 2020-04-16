@@ -6,8 +6,11 @@ public class Combatant extends Attack implements Heal {
     private String name;
     private boolean isDead;
     private boolean isVillain;
+    private static final int MAX_heal = 2;
+    private int count;
 
     public Combatant(String name, boolean isVillain) {
+        this.count = 0;
         this.name = name;
         this.health = 100;
         this.isVillain = isVillain;
@@ -26,7 +29,7 @@ public class Combatant extends Attack implements Heal {
     }
 
     protected void setHealth(int health) {
-        this.health += health;
+        this.health = health;
     }
 
     public boolean isDead() {
@@ -41,6 +44,18 @@ public class Combatant extends Attack implements Heal {
         return "";
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public boolean isVillain() {
+        return isVillain;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
     @Override
     public String toString() {
         return "Combatant{" +
@@ -52,9 +67,11 @@ public class Combatant extends Attack implements Heal {
     }
 
     public boolean heal() {
-        int howMuch = this.isVillain ? 10 : 0;
-        this.setHealth(10);
-        return howMuch != 0;
+        if (!this.isVillain && (count++ < MAX_heal)) {
+            this.setHealth(getHealth() + 10);
+            return true;
+        }
+        return false;
     }
 }
 

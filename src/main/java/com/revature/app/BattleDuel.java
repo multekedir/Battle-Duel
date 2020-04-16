@@ -14,14 +14,41 @@ public class BattleDuel {
     public static void main(String[] args) {
         BattleDuel m = new BattleDuel();
         m.start();
+//        Commands.scan.close();
 
     }
 
     public void start() {
         Controller controller = new Controller();
-        String[] roomList = {"Stable", "Store", "Road", "null", "Entrance"};
-        controller.setup("Multezem");
-        Commands.go();
+
+        controller.setup();
+        Commands.where();
+        do {
+            System.out.println();
+            System.out.println(new String(new char[100]).replace('\0', '*'));
+            String com = Commands.getInput("Enter a Command. \"Help\" -> Print list of commands");
+            switch (com.toLowerCase()) {
+                case "go":
+                    Commands.go();
+                    break;
+                case "help":
+                    System.out.println(Commands.printCommands());
+                    break;
+                case "heal":
+                    Commands.heal();
+                    break;
+                case "quit":
+                    System.out.println(":(");
+                    break;
+                default:
+                    System.out.println("Command not found");
+                    System.out.println(Commands.printCommands());
+            }
+
+        } while (Commands.keepGoing());
+        Commands.whoWon();
+        System.out.println("Hello");
+
 
 //        controller.creatRoom()
 

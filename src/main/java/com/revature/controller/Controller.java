@@ -1,9 +1,11 @@
 package com.revature.controller;
 
+import com.revature.entities.Combatant;
 import com.revature.entities.rooms.Room;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 
 /**
@@ -15,12 +17,19 @@ public class Controller extends FightController {
     private static List<Room> rooms;
     private boolean isSetup = false;
 
+    /**
+     * Print directions.
+     */
     public static void printDirections() {
+        System.out.print("Use the command");
         for (Directions d : Directions.values()) {
-            System.out.println(" -> " + d);
+            System.out.print(" " + d);
         }
     }
 
+    /**
+     * Go north.
+     */
     public static void goNorth() {
         if (current.getNorthRoom() != null) {
             System.out.println("Going North");
@@ -71,24 +80,49 @@ public class Controller extends FightController {
         }
     }
 
+    /**
+     * change the previous room
+     */
     private static void changePrevious(Room room) {
         previous = room;
     }
 
+    /**
+     * change the Current room
+     */
     private static void changeCurrent(Room room) {
         current = room;
-        if (room.hasEnemy()) fight(room.getEnemy());
+        current.getDescription();
+        System.out.println(new String(new char[100]).replace('\0', '*'));
+        if (room.hasEnemy() && !room.getEnemy().isDead()) {
+            Combatant enemy = room.getEnemy();
+            System.out.println(enemy.getName() + " is there. Prepare to Fight. \nHe is carrying " + enemy.getWeaponName() + " and he " + enemy.isFar());
+            fight(room.getEnemy());
 
-
+//            System.out.println(fight(room.getEnemy()) ? "Hero" : "Enemy");
+        }
     }
 
+    /**
+     * Go back to the previous room
+     */
     public static void goBack() {
         System.out.println("Going back");
         current = previous;
         current.getDescription();
     }
 
-    public void setup(String heroName) {
+    /**
+     * Current room description.
+     */
+    public static void currentRoomDescription() {
+        current.getDescription();
+    }
+
+    /**
+     * Sets .
+     */
+    public void setup() {
         rooms = new ArrayList<Room>();
         current = new Room("Entrance");
         rooms.add(current);
@@ -97,17 +131,33 @@ public class Controller extends FightController {
         // setup rooms
         creatRoom("Entrance", "Store", Directions.EAST);
         creatRoom("Entrance", "Road", Directions.NORTH);
-        creatRoom("Entrance", "Stable", Directions.WEST);
+        creatRoom("Entrance", "Church", Directions.WEST);
 
-        //show where I am
-        current.getDescription();
-        createHero(heroName);
+        creatRoom("Road", "School", Directions.WEST);
+        creatRoom("Road", "Stable", Directions.EAST);
+        creatRoom("Road", "Dueling  Area", Directions.NORTH);
+
+        creatRoom("Dueling  Area", "Bar", Directions.EAST);
+        creatRoom("Dueling  Area", "Sheriff's Office", Directions.WEST);
+
+
+        createHero();
         createEnemy();
+        addEnemyToRoom();
+        System.out.println(fight(enemies.get(1)) ? "Hero Won" : "Enemy Won");
+
 
     }
 
+    /**
+     * Creat room boolean.
+     *
+     * @param oldRoom   the old room
+     * @param name      the name
+     * @param direction the direction
+     * @return the boolean
+     */
     public boolean creatRoom(String oldRoom, String name, Directions direction) {
-        System.out.println();
         Room newRoom = new Room(name);
         Room room = this.traverse(oldRoom);
         if (isSetup) {
@@ -146,10 +196,30 @@ public class Controller extends FightController {
         return false;
     }
 
-    private void setupEnemy(Room room) {
-        room.addEnemy(bossEnemy);
+    /**
+     * add Enemy To a Room randomly
+     */
+    private void addEnemyToRoom() {
+        Random rand = new Random();
+        Room room;
+        //get random room
+        for (Combatant en : enemies) {
+            do {
+                room = rooms.get(rand.nextInt(rooms.size()));
+            } while (traverse("Entrance").equals(room) || room.hasEnemy());
+
+            System.out.println("Added enemy in +o " + room.getName());
+            room.addEnemy(en);
+        }
+
     }
 
+
+    /**
+     * find rooms
+     *
+     * @return Room found null if not found
+     */
     private Room traverse(String name) {
         //check if the size of rooms is more than one
         if (rooms.size() > 0) {
@@ -169,16 +239,15 @@ public class Controller extends FightController {
                 }
 
             }
-            return null;
         }
         return null;
     }
 
-    public enum Directions {
-        EAST,
-        WEST,
-        NORTH,
-        SOUTH
+    /**
+     * The enum Directions.
+     */
+    protected enum Directions {
+        EAST, WEST, NORTH, SOUTH
     }
 
 
